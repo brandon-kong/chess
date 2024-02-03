@@ -1,23 +1,21 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include <fstream>
+
+#include "Game.h"
+#include "SFMLDisplay.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800,800), "Chess", sf::Style::Titlebar | sf::Style::Close);
-	window.setFramerateLimit(144);
+	std::cout << "Reading from config.json" <<std::endl;
 
-	while (window.isOpen()) {
-		sf::Event event;
-		
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
-		}
-
-		window.clear();
-		window.display();
+	std::ifstream file("config.json");
+	if (!file.is_open()) {
+		std::cerr << "Failed to open config.json" << std::endl;
+		return 1;
 	}
+ 
+	Game game;
+	SFMLDisplay display(game);
 
-	return 0;
+	display.run();
 }

@@ -3,19 +3,25 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Player.h"
+#include "Board.h"
+#include "Piece.h"
+
 #include <array>
 #include <vector>
 #include <iostream>
 
-class Game:
-	public sf::Drawable {
-		private:
-			Board board;
-			std::array<Piece, 16> whitePieces;
-			std::array<Piece, 16> blackPieces;
-			Piece* selectedPiece;
-			std::vector<sf::RectangleShape> possibleMoveSquares;
-			std::string lastMove;
-	}
+class Game {
+	public:
+		Game();
+		void start();
 
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+private:
+	Board board_;
+	Player players_[2] = {Player(true), Player(false)};
+	Player* currentPlayer_ = &players_[0];
+};
+	
 #endif

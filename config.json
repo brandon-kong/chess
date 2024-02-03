@@ -1,0 +1,15 @@
+{
+	"board": {
+		"width": 8,
+		"height": 8,
+		"squareSize": 100
+	},
+	"piece": {
+		"radius": 50
+	},
+
+	"colors": {
+		"lightSquare": [ 255, 206, 158 ],
+		"darkSquare": [209, 139, 71]
+	}
+}
