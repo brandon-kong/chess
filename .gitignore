@@ -1,5 +1,7 @@
 # Ignore build
 build/
+out/
+
 
 # Ignore all .o and .a files
 *.o
@@ -40,6 +42,7 @@ _deps/
 
 # Ignore VS Code settings
 .vscode/
+.vs/
 
 # Ignore other files that may contain sensitive information or build artifacts
 *.log

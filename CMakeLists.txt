@@ -4,6 +4,9 @@ project(Chess LANGUAGES CXX)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
+set(INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include)
+set(INCLUDE_SOURCES ${INCLUDE_DIRECTORY}/Board.h ${INCLUDE_DIRECTORY}/Piece.h ${INCLUDE_DIRECTORY}/Game.h)
+
 include(FetchContent)
 FetchContent_Declare(
 	SFML
@@ -12,9 +15,11 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SFML)
 
-add_executable(Chess src/main.cpp)
+add_executable(Chess src/main.cpp ${INCLUDE_SOURCES})
 target_link_libraries(Chess PRIVATE sfml-graphics)
 target_compile_features(Chess PRIVATE cxx_std_17)
+
+target_include_directories(Chess PRIVATE ${INCLUDE_DIRECTORY})
 
 if (WIN32)
 	add_custom_command(
