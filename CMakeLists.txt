@@ -1,40 +1,28 @@
-cmake_minimum_required(VERSION 3.14)
-cmake_policy(SET CMP0135 NEW)
+cmake_minimum_required(VERSION 3.16)
+project(Chess LANGUAGES CXX)
 
-project(chess)
-
-file(GLOB TEST_SOURCES "test/*.test.cpp")
-file(GLOB SOURCES "src/*.cpp")
-
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 include(FetchContent)
 FetchContent_Declare(
-    googletest
-    URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+	SFML
+	GIT_REPOSITORY https://github.com/SFML/SFML.git
+	GIT_TAG 2.6.x
 )
+FetchContent_MakeAvailable(SFML)
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+add_executable(Chess src/main.cpp)
+target_link_libraries(Chess PRIVATE sfml-graphics)
+target_compile_features(Chess PRIVATE cxx_std_17)
 
-enable_testing()
+if (WIN32)
+	add_custom_command(
+		TARGET Chess
+		COMMENT "Copy OpenAL DLL"
+		PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64, x86>/openal32.dll $<TARGET_FILE_DIR:Chess>
+		VERBATIM
+		)
+endif()
 
-add_executable(
-    test_suite
-    ${TEST_SOURCES}
-    ${SOURCES}
-)
-
-add_executable(
-    chess
-    ${SOURCES}
-)
-
-target_link_libraries(
-    test_suite
-    GTest::gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(test_suite)
+install(TARGETS Chess)
