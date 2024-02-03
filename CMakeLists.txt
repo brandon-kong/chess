@@ -12,7 +12,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SFML)
 
-add_executable(Chess src/hello.cpp)
+add_executable(Chess src/main.cpp)
 target_link_libraries(Chess PRIVATE sfml-graphics)
 target_compile_features(Chess PRIVATE cxx_std_17)
 
