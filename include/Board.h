@@ -14,7 +14,7 @@ class Board {
 public:
 	Board();
 
-	bool isValidMove(int x, int y);
+	bool isValidMove(int x1, int y1, int x2, int y2);
 
 	// Initializes the board with pieces
 	void init();

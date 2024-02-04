@@ -44,8 +44,14 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 		}
 	}
 	else {
-		// Move the piece
-		Move move(selectedPiece_->getX(), selectedPiece_->getY(), x, y);
+		// Make sure the move is valid
+
+		if (!isValidMove(selectedPiece_->getX(), selectedPiece_->getY(), x, y)) {
+			selectedPiece_ = nullptr;
+			return;
+		}
+
+		Move move(selectedPiece_->getX(), selectedPiece_->getY(), x, y, Move::MoveType::Normal);
 		std::cout << move.toString() << std::endl;
 
 		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = nullptr;
@@ -56,8 +62,32 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 	}
 }
 
-bool Board::isValidMove(int x, int y) {
+bool Board::isValidMove(int x1, int y1, int x2, int y2) {
 	// TODO
+
+	// Check if the piece is moving to the same square
+	if (x1 == x2 && y1 == y2) {
+		return false;
+	}
+
+	// Check if the piece is moving to a square that is out of bounds
+	if (x2 < 0 || y2 < 0 || x2 >= board_size_ || y2 >= board_size_) {
+		return false;
+	}
+
+	// Check if the piece is moving to a square that is occupied by a piece of the same color
+	if (squares_[x2][y2] != nullptr && squares_[x2][y2]->getColor() == selectedPiece_->getColor()) {
+		return false;
+	}
+
+	// Check if the piece is moving to a square that is occupied by a piece of the opposite color
+	if (squares_[x2][y2] != nullptr && squares_[x2][y2]->getColor() != selectedPiece_->getColor()) {
+		return true;
+	}
+
+	// Check if the piece is moving to a square that is not in the piece's movement pattern
+	
+
 	return true;
 }
 
@@ -75,28 +105,31 @@ void Board::loadFromFEN(std::string fen) {
 		}
 		else {
 			int piece = 0;
+			int type = 0;
 			bool isWhite = isupper(fen[i]);
 
 			switch (tolower(fen[i])) {
 			case 'p':
-				piece = PAWN;
+				type = PAWN;
 				break;
 			case 'r':
-				piece = ROOK;
+				type = ROOK;
 				break;
 			case 'n':
-				piece = KNIGHT;
+				type = KNIGHT;
 				break;
 			case 'b':
-				piece = BISHOP;
+				type = BISHOP;
 				break;
 			case 'q':
-				piece = QUEEN;
+				type = QUEEN;
 				break;
 			case 'k':
-				piece = KING;
+				type = KING;
 				break;
 			}
+
+			piece = type;
 
 			if (!isWhite) {
 				piece |= BLACK;
@@ -111,7 +144,17 @@ void Board::loadFromFEN(std::string fen) {
 				exit(1);
 			}
 
-			Piece* p = new Piece(piece, x, y);
+			Piece* p;
+
+			switch (type) {
+				case PAWN:
+					p = new Pawn(piece, x, y);
+					break;
+				default:
+					p = new Piece(piece, x, y);
+					break;
+			}
+
 			pieces_.push_back(*p);
 			squares_[x][y] = p;
 

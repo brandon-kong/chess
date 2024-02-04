@@ -22,9 +22,14 @@ public:
 	int getToY() const { return toY_; }
 
 	std::string toString() const {
-		std::string from = std::to_string(fromX_) + std::to_string(fromY_);
-		std::string to = std::to_string(toX_) + std::to_string(toY_);
-		return from + ", " + to;
+		// algebraic notation
+
+		std::string result = "";
+		result += (char)('a' + fromX_);
+		result += (char)('8' - fromY_);
+		result += (char)('a' + toX_);
+		result += (char)('8' - toY_);
+		return result;
 	}
 
 private:
