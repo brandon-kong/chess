@@ -1,15 +1,14 @@
 {
-	// Sizes CONFIGs
 	"board_size": 8,
 	"square_size": 100,
 	"piece_size": 50,
 
 	"start_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
 
-	// Colors CONFIGs
 	"light_square_color": [ 232, 237, 249 ],
 	"dark_square_color": [ 183, 192, 216 ],
+	"selected_light_square_color": [ 255, 255, 0 ],
+	"selected_dark_square_color": [ 255, 255, 0 ],
 
-	// Path CONFIGs
 	"assets_path": "assets/"
 }

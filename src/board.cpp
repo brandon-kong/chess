@@ -131,7 +131,15 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 			square.setFillColor((i + j) % 2 == 0 ? sf::Color(lightSquareColor[0], lightSquareColor[1], lightSquareColor[2]) : sf::Color(darkSquareColor[0], darkSquareColor[1], darkSquareColor[2]));
 			target.draw(square, states);
 
+			// Draw the selected square
 
+			if (selectedPiece_ != nullptr && selectedPiece_->getX() == i && selectedPiece_->getY() == j) {
+				std::vector<int> selectedLightSquareColor = Config::SELECTED_LIGHT_SQUARE_COLOR;
+				std::vector<int> selectedDarkSquareColor = Config::SELECTED_DARK_SQUARE_COLOR;
+
+				square.setFillColor((i + j) % 2 == 0 ? sf::Color(selectedLightSquareColor[0], selectedLightSquareColor[1], selectedLightSquareColor[2]) : sf::Color(selectedDarkSquareColor[0], selectedDarkSquareColor[1], selectedDarkSquareColor[2]));
+				target.draw(square, states);
+			}
 
 			// Draw the pieces
 			
