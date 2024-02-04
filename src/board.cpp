@@ -4,6 +4,7 @@
 #include "Move.h"
 
 // Piece includes
+#include "Pieces/Knight.h"
 #include "Pieces/Pawn.h"
 
 Board::Board() {
@@ -161,6 +162,9 @@ void Board::loadFromFEN(std::string fen) {
 			switch (type) {
 				case PAWN:
 					p = new Pawn(piece, x, y);
+					break;
+				case KNIGHT:
+					p = new Knight(piece, x, y);
 					break;
 
 				default:

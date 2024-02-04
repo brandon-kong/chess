@@ -1,7 +1,7 @@
-#include "Pieces/Pawn.h"
+#include "Pieces/Knight.h"
 
 
-std::vector<std::pair<int, int>> Pawn::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
+std::vector<std::pair<int, int>> Knight::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
 
 	std::vector<std::pair<int, int>> moves;
 
@@ -11,8 +11,6 @@ std::vector<std::pair<int, int>> Pawn::getValidMoves(const std::vector<std::vect
 	int x = x_;
 	int y = y_ + direction;
 	int two_squares_y = y_ + 2 * direction;
-
-	std::cout << "x: " << x << " y: " << y << std::endl;
 
 	// normal moves
 	if (y >= 0 && y < squares.size() && squares[x][y] == nullptr) {
