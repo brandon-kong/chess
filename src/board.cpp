@@ -31,7 +31,6 @@ void Board::init() {
 }
 
 void Board::handleMouseClick(sf::Vector2i mousePosition) {
-	// Get the position of the mouse
 	
 	int x = mousePosition.x / squareSize_;
 	int y = mousePosition.y / squareSize_;
@@ -55,20 +54,16 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 		squares_[x][y] = selectedPiece_;
 		selectedPiece_->setSquare(x, y);
 
-		//selectedPiece_->setPosition(x * squareSize_, y * squareSize_);
-
 		selectedPiece_ = nullptr;
 	}
 }
 
 bool Board::isValidMove(int x, int y) {
-	// return true for now
+	// TODO
 	return true;
 }
 
 void Board::loadFromFEN(std::string fen) {
-	// It should work for strings greater than 8
-
 	int x = 0;
 	int y = 0;
 
@@ -113,7 +108,6 @@ void Board::loadFromFEN(std::string fen) {
 			}
 
 			// handle out of bounds
-
 			if (x >= width_ || y >= height_) {
 				std::cerr << "Error: x or y is out of bounds" << std::endl;
 				exit(1);
