@@ -23,15 +23,15 @@ enum class PieceColor {
 	Black = 1
 };
 
-const int PAWN = 1;
-const int ROOK = 2;
-const int KNIGHT = 3;
-const int BISHOP = 4;
-const int QUEEN = 5;
-const int KING = 6;
+const int	PAWN = 1;
+const int	ROOK = 2;
+const int	KNIGHT = 3;
+const int	BISHOP = 4;
+const int	QUEEN = 5;
+const int	KING = 6;
 
-const int WHITE = 8;
-const int BLACK = 16;
+const int	WHITE = 8;
+const int	BLACK = 16;
 
 const int	EMPTY = 0;
 const int	BLACK_PAWN = PAWN | BLACK;
@@ -48,6 +48,24 @@ const int	WHITE_BISHOP = BISHOP | WHITE;
 const int	WHITE_QUEEN = QUEEN | WHITE;
 const int	WHITE_KING = KING | WHITE;
 
+// Map out the piece images to the piece types
+
+const std::map<int, std::string> pieceImages = {
+	{ BLACK_PAWN, "black_pawn" },
+	{ BLACK_ROOK, "black_rook" },
+	{ BLACK_KNIGHT, "black_knight" },
+	{ BLACK_BISHOP, "black_bishop" },
+	{ BLACK_QUEEN, "black_queen" },
+	{ BLACK_KING, "black_king" },
+	{ WHITE_PAWN, "white_pawn" },
+	{ WHITE_ROOK, "white_rook" },
+	{ WHITE_KNIGHT, "white_knight" },
+	{ WHITE_BISHOP, "white_bishop" },
+	{ WHITE_QUEEN, "white_queen" },
+	{ WHITE_KING, "white_king" }
+};
+
+// Class that represents a chess piece
 class Piece {
 public:
 

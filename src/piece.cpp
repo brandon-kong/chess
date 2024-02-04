@@ -3,10 +3,7 @@
 
 Piece::Piece(int type, int x, int y) {
 	type_ = type;
-
 	isWhite_ = (type & WHITE) == WHITE;
-
-	std::cout << isWhite_ << std::endl;
 	
 	hasMoved_ = false;
 	x_ = x;
@@ -28,10 +25,21 @@ void Piece::draw(sf::RenderTarget& target, sf::RenderStates states, nlohmann::js
 	float centerX = x_ + squareSize / 2.0f;
 	float centerY = y_ + squareSize / 2.0f;
 
-	sf::CircleShape shape(radius);
-	shape.setOrigin(radius, radius);
+	sf::Image image;
 
-	shape.setFillColor(isWhite_ ? sf::Color::White : sf::Color::Black);
-	shape.setPosition(centerX, centerY);
-	target.draw(shape, states);
+	std::string assetsPath = config["assetsPath"];
+	std::string imagePath = assetsPath + pieceImages.at(type_) + ".png";
+
+	image.loadFromFile(imagePath);
+
+	sf::Texture texture;
+	texture.loadFromImage(image);
+
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
+
+	sprite.setOrigin(image.getSize().x / 2.0f, image.getSize().y / 2.0f);
+	sprite.setPosition(centerX, centerY);
+
+	target.draw(sprite, states);
 }

@@ -1,8 +1,10 @@
 {
 	"board": {
-		"width": 10,
+		"width": 8,
 		"height": 8,
-		"squareSize": 100
+		"squareSize": 100,
+
+		"startFEN":  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 	},
 	"piece": {
 		"radius": 50
@@ -11,5 +13,7 @@
 	"colors": {
 		"lightSquare": [ 232, 237, 249 ],
 		"darkSquare": [ 183, 192, 216 ]
-	}
+	},
+
+	"assetsPath":  "assets/"
 }
