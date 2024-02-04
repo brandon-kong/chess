@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "Piece.h"
 #include "Config.h"
+#include "Move.h"
 
 Board::Board() {
 
@@ -44,6 +45,9 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 	}
 	else {
 		// Move the piece
+		Move move(selectedPiece_->getX(), selectedPiece_->getY(), x, y);
+		std::cout << move.toString() << std::endl;
+
 		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = nullptr;
 		squares_[x][y] = selectedPiece_;
 		selectedPiece_->setSquare(x, y);

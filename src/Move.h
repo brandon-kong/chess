@@ -1,6 +1,8 @@
 #ifndef MOVE_H
 #define MOVE_H
 
+#include <string>
+
 class Move {
 public:
 	enum class MoveType {
@@ -18,6 +20,15 @@ public:
 	int getFromY() const { return fromY_; }
 	int getToX() const { return toX_; }
 	int getToY() const { return toY_; }
+
+	std::string toString() const {
+		std::string move = "";
+		move += (char)(fromX_ + 'a');
+		move += (char)('8' - fromY_);
+		move += (char)(toX_ + 'a');
+		move += (char)('8' - toY_);
+		return move;
+	}
 
 	MoveType getType() const { return type_; }
 
