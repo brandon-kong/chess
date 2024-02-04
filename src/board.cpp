@@ -45,13 +45,13 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 	if (selectedPiece_ == nullptr) {
 		selectedPiece_ = squares_[x][y];
 
-		if (selectedPiece_ == EMPTY) {
+		if (!selectedPiece_) {
 			selectedPiece_ = nullptr;
 		}
 	}
 	else {
 		// Move the piece
-		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = EMPTY;
+		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = nullptr;
 		squares_[x][y] = selectedPiece_;
 		selectedPiece_->setSquare(x, y);
 
@@ -121,7 +121,7 @@ void Board::loadFromFEN(std::string fen) {
 
 			Piece* p = new Piece(piece, x, y);
 			pieces_.push_back(*p);
-			squares_[x][y] = p;
+			squares_[x][y] = piece;
 
 			x++;
 		}
