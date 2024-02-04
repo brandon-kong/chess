@@ -1,9 +1,13 @@
 #include "Piece.h"
 #include <nlohmann/json.hpp>
 
-Piece::Piece(int type, bool isWhite, int x, int y) {
+Piece::Piece(int type, int x, int y) {
 	type_ = type;
-	isWhite_ = isWhite;
+
+	isWhite_ = (type & WHITE) == WHITE;
+
+	std::cout << isWhite_ << std::endl;
+	
 	hasMoved_ = false;
 	x_ = x;
 	y_ = y;
@@ -11,6 +15,10 @@ Piece::Piece(int type, bool isWhite, int x, int y) {
 
 int Piece::getType() const {
 	return type_;
+}
+
+int Piece::getColor() const {
+	return isWhite_ ? WHITE : BLACK;
 }
 
 void Piece::draw(sf::RenderTarget& target, sf::RenderStates states, nlohmann::json config) const {

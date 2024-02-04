@@ -21,36 +21,74 @@ Board::Board(nlohmann::json config) {
 }
 
 void Board::init() {
+
+	if (!config_["board"]["startFEN"].is_string()) {
+		std::cerr << "Error: startFEN is not a string" << std::endl;
+		exit(1);
+	}
+
+	this->loadFromFEN(config_["board"]["startFEN"]);
 	
-	// 0 = empty, 1 = pawn, 2 = rook, 3 = knight, 4 = bishop, 5 = queen, 6 = king
-	// 0 = white, 1 = black
+}
 
-	std::vector<std::vector<int>> piecePositions = {
-		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0}
-	};
+void Board::loadFromFEN(std::string fen) {
+	// It should work for strings greater than 8
 
-	// White pieces
-	piecePositions[0] = { 2, 3, 4, 5, 6, 4, 3, 2 };
-	piecePositions[1] = { 1, 1, 1, 1, 1, 1, 1, 1 };
+	int x = 0;
+	int y = 0;
 
-	// Black pieces
-	piecePositions[7] = { 2, 3, 4, 5, 6, 4, 3, 2 };
-	piecePositions[6] = { 1, 1, 1, 1, 1, 1, 1, 1 };
+	for (int i = 0; i < fen.size(); i++) {
+		if (fen[i] == '/') {
+			x = 0;
+			y++;
+		}
+		else if (isdigit(fen[i])) {
+			x += fen[i] - '0';
+		}
+		else {
+			int piece = 0;
+			bool isWhite = isupper(fen[i]);
 
-	for (int i = 0; i < width_; i++) {
-		for (int j = 0; j < height_; j++) {
-			if (piecePositions[j][i] != 0) {
-				Piece* piece = new Piece(piecePositions[j][i], piecePositions[j][i] == 1, i * squareSize_, j * squareSize_);
-				pieces_.push_back(*piece);
-				squares_[i][j] = piece;
+			switch (tolower(fen[i])) {
+			case 'p':
+				piece = PAWN;
+				break;
+			case 'r':
+				piece = ROOK;
+				break;
+			case 'n':
+				piece = KNIGHT;
+				break;
+			case 'b':
+				piece = BISHOP;
+				break;
+			case 'q':
+				piece = QUEEN;
+				break;
+			case 'k':
+				piece = KING;
+				break;
 			}
+
+			if (!isWhite) {
+				piece |= BLACK;
+			}
+			else {
+				piece |= WHITE;
+			}
+
+			// handle out of bounds
+
+			if (x >= width_ || y >= height_) {
+				std::cerr << "Error: x or y is out of bounds" << std::endl;
+				exit(1);
+			}
+
+			Piece* p = new Piece(piece, x * squareSize_, y * squareSize_);
+			pieces_.push_back(*p);
+			squares_[x][y] = p;
+
+			x++;
 		}
 	}
 }

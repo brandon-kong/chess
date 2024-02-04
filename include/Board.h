@@ -20,6 +20,8 @@ public:
 	// Initializes the board with pieces
 	void init();
 
+	void loadFromFEN(std::string fen);
+
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
