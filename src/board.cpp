@@ -157,7 +157,15 @@ void Board::loadFromFEN(std::string fen) {
 				exit(1);
 			}
 
-			Piece* p = new Piece(piece, x, y);
+			Piece* p = nullptr;
+			switch (type) {
+				case PAWN:
+					p = new Pawn(piece, x, y);
+					break;
+
+				default:
+					p = nullptr;
+			}
 
 			if (p != nullptr) {
 				p->setSquare(x, y);

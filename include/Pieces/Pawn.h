@@ -8,14 +8,8 @@
 class Pawn : public Piece
 {
 public:
-	Pawn(int type, int x, int y);
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-	std::vector<std::pair<int, int>> getValidMoves(const std::vector<std::vector<Piece*>>& board) const;
-
-private:
-	int type;
-	int x;
-	int y;
+	Pawn(int type, int x, int y) : Piece(type, x, y) {}
+	std::vector<std::pair<int, int>> getValidMoves(const std::vector<std::vector<Piece*>>& board) const override;
 };
 
 #endif

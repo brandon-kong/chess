@@ -83,8 +83,8 @@ public:
 
 	void setSquare(int x, int y);
 
-	std::vector<std::pair<int, int>> getValidMoves(const std::vector<std::vector<Piece*>>& squares) const;
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual std::vector<std::pair<int, int>> getValidMoves(const std::vector<std::vector<Piece*>>& squares) const;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 protected:
 

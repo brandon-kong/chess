@@ -1,39 +1,5 @@
-#include "Piece.h"
 #include "Pieces/Pawn.h"
 
-Pawn::Pawn(int type, int x, int y) : Piece(type, x, y) {
-	this->type = type;
-	this->x = x;
-	this->y = y;
-}
-
-void Pawn::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	int piece_size = Config::PIECE_SIZE;
-	int squareSize = Config::SQUARE_SIZE;
-
-	float centerX = (x_ * squareSize) + squareSize / 2.0f;
-	float centerY = (y_ * squareSize) + squareSize / 2.0f;
-
-	sf::Image image;
-
-	std::string assetsPath = Config::ASSETS_PATH;
-	std::string imagePath = assetsPath + pieceImages.at(type_) + ".png";
-
-	image.loadFromFile(imagePath);
-
-	sf::Texture texture;
-	texture.loadFromImage(image);
-	texture.setSmooth(true);
-
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
-	sprite.setScale((float)squareSize / image.getSize().x, (float)squareSize / image.getSize().y);
-
-	sprite.setOrigin(image.getSize().x / 2.0f, image.getSize().y / 2.0f);
-	sprite.setPosition(centerX, centerY);
-
-	target.draw(sprite, states);
-}
 
 std::vector<std::pair<int, int>> Pawn::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
 
