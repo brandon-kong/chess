@@ -9,7 +9,7 @@
 	},
 
 	"colors": {
-		"lightSquare": [ 255, 206, 158 ],
-		"darkSquare": [209, 139, 71]
+		"lightSquare": [ 232, 237, 249 ],
+		"darkSquare": [ 183, 192, 216 ]
 	}
 }
