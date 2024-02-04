@@ -29,6 +29,7 @@ private:
 
 	int width_;
 	int height_;
+	int squareSize_;
 };
 
 #endif

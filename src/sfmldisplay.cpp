@@ -25,6 +25,18 @@ SFMLDisplay::SFMLDisplay(Game& game, nlohmann::json config) : game_(game), confi
 		exit(1);
 	}
 
+	// Handle errors for pieces
+
+	if (!config["piece"].is_object()) {
+		std::cerr << "Error: piece is not an object" << std::endl;
+		exit(1);
+	}
+
+	if (!config["piece"]["radius"].is_number_integer()) {
+		std::cerr << "Error: radius is not an integer" << std::endl;
+		exit(1);
+	}
+
 	// Get the size of the board
 	const int width = config["board"]["width"];
 	const int height = config["board"]["height"];

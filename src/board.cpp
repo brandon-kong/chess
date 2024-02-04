@@ -9,11 +9,11 @@ Board::Board(nlohmann::json config) {
 
 	const int width = config_["board"]["width"];
 	const int height = config_["board"]["height"];
+	const int square = config_["board"]["squareSize"];
 
 	width_ = width;
 	height_ = height;
-
-	std::cout << "Width: " << width << std::endl;
+	squareSize_ = square;
 
 	squares_ = std::vector<std::vector<Piece*>>(width, std::vector<Piece*>(height, nullptr));
 
@@ -22,18 +22,36 @@ Board::Board(nlohmann::json config) {
 
 void Board::init() {
 	
+	// 0 = empty, 1 = pawn, 2 = rook, 3 = knight, 4 = bishop, 5 = queen, 6 = king
+	// 0 = white, 1 = black
+
+	std::vector<std::vector<int>> piecePositions = {
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0}
+	};
+
+	// White pieces
+	piecePositions[0] = { 2, 3, 4, 5, 6, 4, 3, 2 };
+	piecePositions[1] = { 1, 1, 1, 1, 1, 1, 1, 1 };
+
+	// Black pieces
+	piecePositions[7] = { 2, 3, 4, 5, 6, 4, 3, 2 };
+	piecePositions[6] = { 1, 1, 1, 1, 1, 1, 1, 1 };
+
 	for (int i = 0; i < width_; i++) {
 		for (int j = 0; j < height_; j++) {
-			squares_[i][j] = nullptr;
+			if (piecePositions[j][i] != 0) {
+				Piece* piece = new Piece(piecePositions[j][i], piecePositions[j][i] == 1, i * squareSize_, j * squareSize_);
+				pieces_.push_back(*piece);
+				squares_[i][j] = piece;
+			}
 		}
-	}
-
-	std::cout << squares_.size() << std::endl;
-
-	// Initialize the pieces
-	for (int i = 0; i < width_; i++) {
-		squares_[i][1] = new Piece(PieceType::Pawn, false);
-		squares_[i][6] = new Piece(PieceType::Pawn, true);
 	}
 }
 
@@ -95,9 +113,9 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 			target.draw(square, states);
 
 			// Draw the pieces
-
+			
 			if (squares_[i][j] != nullptr) {
-				squares_[i][j]->draw(target, states);
+				squares_[i][j]->draw(target, states, config_);
 			}
 		}
 	}

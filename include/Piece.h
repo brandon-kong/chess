@@ -2,34 +2,49 @@
 #define PIECE_H
 
 #include <SFML/Graphics.hpp>
+#include <nlohmann/json.hpp>
 
 #include <iostream>
 #include <string>
 #include <vector>
 
 enum class PieceType {
-	Pawn,
-	Rook,
-	Knight,
-	Bishop,
-	Queen,
-	King
+	Empty = 0,
+	Pawn = 1,
+	Rook = 2,
+	Knight = 3,
+	Bishop = 4,
+	Queen = 5,
+	King = 6
 };
 
-class Piece : public sf::Drawable {
+enum class PieceColor {
+	White = 0,
+	Black = 1
+};
+
+enum class PieceDirection {
+	Up = 0,
+	Down = 1
+};
+
+class Piece {
 public:
 
-	Piece(PieceType type, bool isWhite);
+	Piece(int type, bool isWhite, int x, int y);
 
-	PieceType getType() const;
+	int getType() const;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states, nlohmann::json config) const;
 
 protected:
 
-	PieceType type_;
+	int type_;
 	bool isWhite_;
 	bool hasMoved_;
+
+	int x_;
+	int y_;
 };
 
 #endif
