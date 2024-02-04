@@ -16,12 +16,14 @@ int main()
 		return 1;
 	}
 
-	nlohmann::json config;
-	file >> config;
+	std::cout << "Parsing config.json" << std::endl;
 
+	nlohmann::json config = nlohmann::json::parse(file);
+
+	std::cout << "Successfully parsed config.json" << std::endl;
 	std::cout << "Creating game" << std::endl;
  
-	Game game;
+	Game game(config);
 	SFMLDisplay display(game);
 
 	display.run();
