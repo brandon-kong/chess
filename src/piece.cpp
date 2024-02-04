@@ -47,9 +47,11 @@ void Piece::draw(sf::RenderTarget& target, sf::RenderStates states, nlohmann::js
 
 	sf::Texture texture;
 	texture.loadFromImage(image);
+	texture.setSmooth(true);
 
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
+	sprite.setScale((float) squareSize / image.getSize().x, (float) squareSize / image.getSize().y);
 
 	sprite.setOrigin(image.getSize().x / 2.0f, image.getSize().y / 2.0f);
 	sprite.setPosition(centerX, centerY);
