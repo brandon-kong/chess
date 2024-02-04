@@ -26,7 +26,7 @@ void SFMLDisplay::run() {
 
 		if (inputManager.isMouseClick(sf::Mouse::Left)) {
 			sf::Vector2i mousePosition = inputManager.getMousePosition();
-			game_.handleMouseClick(mousePosition);
+			game_.getBoard().handleMouseClick(mousePosition);
 		}
 
 		draw();

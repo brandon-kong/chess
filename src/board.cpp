@@ -30,6 +30,10 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 		return;
 	}
 
+	if (x < 0 || y < 0) {
+		return;
+	}
+
 	// If there is no piece selected
 	if (selectedPiece_ == nullptr) {
 		selectedPiece_ = squares_[x][y];

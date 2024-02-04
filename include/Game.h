@@ -18,7 +18,7 @@ class Game {
 		Game();
 		void start();
 
-		void handleMouseClick(sf::Vector2i mousePosition);
+		Board& getBoard() { return board_; }
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
