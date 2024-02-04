@@ -3,6 +3,9 @@
 #include "Config.h"
 #include "Move.h"
 
+// Piece includes
+#include "Pieces/Pawn.h"
+
 Board::Board() {
 
 	const int board_size = Config::BOARD_SIZE;
@@ -41,6 +44,16 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 
 		if (!selectedPiece_) {
 			selectedPiece_ = nullptr;
+		}
+		else {
+			// get selected piece's legal moves
+			std::vector<std::pair<int, int>> legalMoves = selectedPiece_->getValidMoves(squares_);
+
+			std::cout << legalMoves.size() << std::endl;
+
+			for (int i = 0; i < legalMoves.size(); i++) {
+				std::cout << "Legal move: " << legalMoves[i].first << " " << legalMoves[i].second << std::endl;
+			}
 		}
 	}
 	else {
@@ -144,20 +157,13 @@ void Board::loadFromFEN(std::string fen) {
 				exit(1);
 			}
 
-			Piece* p;
+			Piece* p = new Piece(piece, x, y);
 
-			switch (type) {
-				case PAWN:
-					p = new Pawn(piece, x, y);
-					break;
-				default:
-					p = new Piece(piece, x, y);
-					break;
+			if (p != nullptr) {
+				p->setSquare(x, y);
+				pieces_.push_back(*p);
+				squares_[x][y] = p;
 			}
-
-			pieces_.push_back(*p);
-			squares_[x][y] = p;
-
 			x++;
 		}
 	}

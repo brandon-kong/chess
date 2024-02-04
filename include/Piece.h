@@ -84,7 +84,7 @@ public:
 	void setSquare(int x, int y);
 
 	std::vector<std::pair<int, int>> getValidMoves(const std::vector<std::vector<Piece*>>& squares) const;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 protected:
 
@@ -94,16 +94,6 @@ protected:
 
 	int x_;
 	int y_;
-};
-
-// Class for each piece
-
-class Pawn : public Piece {
-public:
-
-	Pawn(int type, int x, int y) : Piece(type, x, y) {}
-
-	std::vector<std::pair<int, int>> getValidMoves(const std::vector<std::vector<Piece*>>& squares) const;
 };
 
 #endif
