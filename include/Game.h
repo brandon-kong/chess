@@ -18,6 +18,8 @@ class Game {
 		Game(nlohmann::json config);
 		void start();
 
+		void handleMouseClick(sf::Vector2i mousePosition);
+
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:

@@ -14,13 +14,16 @@ public:
 	Board();
 	Board(nlohmann::json config);
 
-	const Piece* getPiece(int x, int y) const;
-	bool movePiece(int x1, int y1, int x2, int y2);
+	bool isValidMove(int x, int y);
 
 	// Initializes the board with pieces
 	void init();
 
 	void loadFromFEN(std::string fen);
+
+	// Events
+
+	void handleMouseClick(sf::Vector2i mousePosition);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -32,6 +35,8 @@ private:
 	int width_;
 	int height_;
 	int squareSize_;
+
+	Piece* selectedPiece_ = nullptr;
 };
 
 #endif

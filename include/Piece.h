@@ -74,6 +74,11 @@ public:
 	int getType() const;
 	int getColor() const;
 
+	int getX() const;
+	int getY() const;
+
+	void setSquare(int x, int y);
+
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states, nlohmann::json config) const;
 
 protected:

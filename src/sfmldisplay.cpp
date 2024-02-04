@@ -1,5 +1,5 @@
 #include "SFMLDisplay.h"
-
+#include "InputManager.h"
 
 SFMLDisplay::SFMLDisplay(Game& game, nlohmann::json config) : game_(game), config_(config) {
 
@@ -47,6 +47,9 @@ SFMLDisplay::SFMLDisplay(Game& game, nlohmann::json config) : game_(game), confi
 }
 
 void SFMLDisplay::run() {
+
+	InputManager inputManager(window_);
+
 	while (window_.isOpen()) {
 		sf::Event event;
 		
@@ -54,6 +57,11 @@ void SFMLDisplay::run() {
 			if (event.type == sf::Event::Closed) {
 				window_.close();
 			}
+		}
+
+		if (inputManager.isMouseClick(sf::Mouse::Left)) {
+			sf::Vector2i mousePosition = inputManager.getMousePosition();
+			game_.handleMouseClick(mousePosition);
 		}
 
 		draw();

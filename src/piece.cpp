@@ -18,12 +18,25 @@ int Piece::getColor() const {
 	return isWhite_ ? WHITE : BLACK;
 }
 
+int Piece::getX() const {
+	return x_;
+}
+
+int Piece::getY() const {
+	return y_;
+}
+
+void Piece::setSquare(int x, int y) {
+	x_ = x;
+	y_ = y;
+}
+
 void Piece::draw(sf::RenderTarget& target, sf::RenderStates states, nlohmann::json config) const {
 	int radius = config["piece"]["radius"];
 	int squareSize = config["board"]["squareSize"];
 
-	float centerX = x_ + squareSize / 2.0f;
-	float centerY = y_ + squareSize / 2.0f;
+	float centerX = (x_ * squareSize) + squareSize / 2.0f;
+	float centerY = (y_ * squareSize) + squareSize / 2.0f;
 
 	sf::Image image;
 

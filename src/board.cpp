@@ -28,7 +28,42 @@ void Board::init() {
 	}
 
 	this->loadFromFEN(config_["board"]["startFEN"]);
+}
+
+void Board::handleMouseClick(sf::Vector2i mousePosition) {
+	// Get the position of the mouse
 	
+	int x = mousePosition.x / squareSize_;
+	int y = mousePosition.y / squareSize_;
+
+	// Handle out of bounds
+	if (x >= width_ || y >= height_) {
+		return;
+	}
+
+	// If there is no piece selected
+	if (selectedPiece_ == nullptr) {
+		selectedPiece_ = squares_[x][y];
+
+		if (selectedPiece_ == EMPTY) {
+			selectedPiece_ = nullptr;
+		}
+	}
+	else {
+		// Move the piece
+		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = EMPTY;
+		squares_[x][y] = selectedPiece_;
+		selectedPiece_->setSquare(x, y);
+
+		//selectedPiece_->setPosition(x * squareSize_, y * squareSize_);
+
+		selectedPiece_ = nullptr;
+	}
+}
+
+bool Board::isValidMove(int x, int y) {
+	// return true for now
+	return true;
 }
 
 void Board::loadFromFEN(std::string fen) {
@@ -84,7 +119,7 @@ void Board::loadFromFEN(std::string fen) {
 				exit(1);
 			}
 
-			Piece* p = new Piece(piece, x * squareSize_, y * squareSize_);
+			Piece* p = new Piece(piece, x, y);
 			pieces_.push_back(*p);
 			squares_[x][y] = p;
 
