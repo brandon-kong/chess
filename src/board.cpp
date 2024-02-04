@@ -121,7 +121,7 @@ void Board::loadFromFEN(std::string fen) {
 
 			Piece* p = new Piece(piece, x, y);
 			pieces_.push_back(*p);
-			squares_[x][y] = piece;
+			squares_[x][y] = p;
 
 			x++;
 		}
