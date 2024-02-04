@@ -6,6 +6,10 @@ Piece::Piece(PieceType type, bool isWhite) {
 	hasMoved_ = false;
 }
 
+PieceType Piece::getType() const {
+	return type_;
+}
+
 void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	sf::CircleShape shape(50);
 	shape.setFillColor(isWhite_ ? sf::Color::White : sf::Color::Black);

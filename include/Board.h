@@ -24,8 +24,11 @@ public:
 
 private:
 	nlohmann::json config_;
-	std::array<std::array<Piece*, 8>, 8> squares_;
+	std::vector<std::vector<Piece*>> squares_;
 	std::vector<Piece> pieces_;
+
+	int width_;
+	int height_;
 };
 
 #endif

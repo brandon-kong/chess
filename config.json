@@ -1,6 +1,6 @@
 {
 	"board": {
-		"width": 8,
+		"width": 10,
 		"height": 8,
 		"squareSize": 100
 	},

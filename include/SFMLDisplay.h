@@ -4,12 +4,13 @@
 #define SFMLDISPLAY_H
 
 #include <SFML/Graphics.hpp>
+#include <nlohmann/json.hpp>
 
 #include "Game.h"
 
 class SFMLDisplay {
 	public:
-		SFMLDisplay(Game& game);
+		SFMLDisplay(Game& game, nlohmann::json config);
 
 		void run();
 		void draw();
@@ -17,6 +18,7 @@ class SFMLDisplay {
 	private:
 		Game& game_;
 		sf::RenderWindow window_;
+		nlohmann::json config_;
 };
 
 #endif

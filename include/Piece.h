@@ -21,6 +21,8 @@ public:
 
 	Piece(PieceType type, bool isWhite);
 
+	PieceType getType() const;
+
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 protected:

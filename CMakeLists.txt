@@ -41,4 +41,5 @@ endif()
 
 configure_file(config.json ${CMAKE_BINARY_DIR}/config.json COPYONLY)
 
+
 install(TARGETS Chess)

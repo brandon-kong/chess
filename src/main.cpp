@@ -24,7 +24,7 @@ int main()
 	std::cout << "Creating game" << std::endl;
  
 	Game game(config);
-	SFMLDisplay display(game);
+	SFMLDisplay display(game, config);
 
 	display.run();
 }
