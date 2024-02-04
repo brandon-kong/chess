@@ -1,19 +1,15 @@
 {
-	"board": {
-		"width": 8,
-		"height": 8,
-		"squareSize": 100,
+	// Sizes CONFIGs
+	"board_size": 8,
+	"square_size": 100,
+	"piece_size": 50,
 
-		"startFEN":  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
-	},
-	"piece": {
-		"radius": 50
-	},
+	"start_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
 
-	"colors": {
-		"lightSquare": [ 232, 237, 249 ],
-		"darkSquare": [ 183, 192, 216 ]
-	},
+	// Colors CONFIGs
+	"light_square_color": [ 232, 237, 249 ],
+	"dark_square_color": [ 183, 192, 216 ],
 
-	"assetsPath":  "assets/"
+	// Path CONFIGs
+	"assets_path": "assets/"
 }

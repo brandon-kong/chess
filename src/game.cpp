@@ -1,11 +1,9 @@
 #include "Game.h"
 #include "Board.h"
+#include "Config.h"
 
 Game::Game() {
-}
-
-Game::Game(nlohmann::json config) {
-	board_ = Board(config);
+	board_ = Board();
 }
 
 void Game::start() {

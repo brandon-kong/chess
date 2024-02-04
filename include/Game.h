@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
+#include "Config.h"
 #include "Player.h"
 #include "Board.h"
 #include "Piece.h"
@@ -15,7 +16,6 @@
 class Game {
 	public:
 		Game();
-		Game(nlohmann::json config);
 		void start();
 
 		void handleMouseClick(sf::Vector2i mousePosition);
@@ -23,7 +23,6 @@ class Game {
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-	nlohmann::json config_;
 	Board board_;
 	Player players_[2] = {Player(true), Player(false)};
 	Player* currentPlayer_ = &players_[0];

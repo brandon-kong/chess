@@ -1,6 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#include "Config.h"
 #include "Piece.h"
 
 #include <SFML/Graphics.hpp>
@@ -12,7 +13,6 @@
 class Board {
 public:
 	Board();
-	Board(nlohmann::json config);
 
 	bool isValidMove(int x, int y);
 
@@ -28,12 +28,10 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-	nlohmann::json config_;
 	std::vector<std::vector<Piece*>> squares_;
 	std::vector<Piece> pieces_;
 
-	int width_;
-	int height_;
+	int board_size_;
 	int squareSize_;
 
 	Piece* selectedPiece_ = nullptr;

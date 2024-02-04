@@ -1,33 +1,23 @@
 #include "Board.h"
 #include "Piece.h"
+#include "Config.h"
 
 Board::Board() {
-}
 
-Board::Board(nlohmann::json config) {
-	config_ = config;
+	const int board_size = Config::BOARD_SIZE;
+	const int square = Config::SQUARE_SIZE;
 
-	const int width = config_["board"]["width"];
-	const int height = config_["board"]["height"];
-	const int square = config_["board"]["squareSize"];
-
-	width_ = width;
-	height_ = height;
+	board_size_ = board_size;
 	squareSize_ = square;
 
-	squares_ = std::vector<std::vector<Piece*>>(width, std::vector<Piece*>(height, nullptr));
+	squares_ = std::vector<std::vector<Piece*>>(board_size, std::vector<Piece*>(board_size, nullptr));
 
 	init();
 }
 
-void Board::init() {
-
-	if (!config_["board"]["startFEN"].is_string()) {
-		std::cerr << "Error: startFEN is not a string" << std::endl;
-		exit(1);
-	}
-
-	this->loadFromFEN(config_["board"]["startFEN"]);
+void Board::init() 
+{
+	this->loadFromFEN(Config::START_FEN);
 }
 
 void Board::handleMouseClick(sf::Vector2i mousePosition) {
@@ -36,7 +26,7 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 	int y = mousePosition.y / squareSize_;
 
 	// Handle out of bounds
-	if (x >= width_ || y >= height_) {
+	if (x >= board_size_ || y >= board_size_) {
 		return;
 	}
 
@@ -108,7 +98,7 @@ void Board::loadFromFEN(std::string fen) {
 			}
 
 			// handle out of bounds
-			if (x >= width_ || y >= height_) {
+			if (x >= board_size_ || y >= board_size_) {
 				std::cerr << "Error: x or y is out of bounds" << std::endl;
 				exit(1);
 			}
@@ -127,62 +117,26 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	// Draw the board
 	sf::RectangleShape square(sf::Vector2f(100, 100));
 
-	// Handle errors for colors
-	if (!config_["colors"].is_object()) {
-		std::cerr << "Error: colors is not an object" << std::endl;
-		exit(1);
-	}
-
-	if (!config_["colors"]["lightSquare"].is_array()) {
-		std::cerr << "Error: lightSquare is not an array" << std::endl;
-		exit(1);
-	}
-
-	if (!config_["colors"]["darkSquare"].is_array()) {
-		std::cerr << "Error: darkSquare is not an array" << std::endl;
-		exit(1);
-	}
-
-	if (config_["colors"]["lightSquare"].size() != 3) {
-		std::cerr << "Error: lightSquare does not have 3 elements" << std::endl;
-		exit(1);
-	}
-
-	if (config_["colors"]["darkSquare"].size() != 3) {
-		std::cerr << "Error: darkSquare does not have 3 elements" << std::endl;
-		exit(1);
-	}
-
-	if (!config_["colors"]["lightSquare"][0].is_number_integer() || !config_["colors"]["lightSquare"][1].is_number_integer() || !config_["colors"]["lightSquare"][2].is_number_integer()) {
-		std::cerr << "Error: lightSquare does not have 3 integers" << std::endl;
-		exit(1);
-	}
-
-	if (!config_["colors"]["darkSquare"][0].is_number_integer() || !config_["colors"]["darkSquare"][1].is_number_integer() || !config_["colors"]["darkSquare"][2].is_number_integer()) {
-		std::cerr << "Error: darkSquare does not have 3 integers" << std::endl;
-		exit(1);
-	}
-
 	// Get the width and height from the config file
 
-	int squareSize = config_["board"]["squareSize"];
-
-	square.setSize(sf::Vector2f(squareSize, squareSize));
+	square.setSize(sf::Vector2f(squareSize_, squareSize_));
 
 	// Get the colors from the config file
-	std::vector<int> lightSquareColor = config_["colors"]["lightSquare"];
-	std::vector<int> darkSquareColor = config_["colors"]["darkSquare"];
+	std::vector<int> lightSquareColor = Config::LIGHT_SQUARE_COLOR;
+	std::vector<int> darkSquareColor = Config::DARK_SQUARE_COLOR;
 
-	for (int i = 0; i < width_; i++) {
-		for (int j = 0; j < height_; j++) {
-			square.setPosition(i * squareSize, j * squareSize);
+	for (int i = 0; i < board_size_; i++) {
+		for (int j = 0; j < board_size_; j++) {
+			square.setPosition(i * squareSize_, j * squareSize_);
 			square.setFillColor((i + j) % 2 == 0 ? sf::Color(lightSquareColor[0], lightSquareColor[1], lightSquareColor[2]) : sf::Color(darkSquareColor[0], darkSquareColor[1], darkSquareColor[2]));
 			target.draw(square, states);
+
+
 
 			// Draw the pieces
 			
 			if (squares_[i][j] != nullptr) {
-				squares_[i][j]->draw(target, states, config_);
+				squares_[i][j]->draw(target, states);
 			}
 		}
 	}

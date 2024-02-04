@@ -1,6 +1,8 @@
 #include "Piece.h"
 #include <nlohmann/json.hpp>
 
+#include "Config.h"
+
 Piece::Piece(int type, int x, int y) {
 	type_ = type;
 	isWhite_ = (type & WHITE) == WHITE;
@@ -31,16 +33,16 @@ void Piece::setSquare(int x, int y) {
 	y_ = y;
 }
 
-void Piece::draw(sf::RenderTarget& target, sf::RenderStates states, nlohmann::json config) const {
-	int radius = config["piece"]["radius"];
-	int squareSize = config["board"]["squareSize"];
+void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	int piece_size = Config::PIECE_SIZE;
+	int squareSize = Config::SQUARE_SIZE;
 
 	float centerX = (x_ * squareSize) + squareSize / 2.0f;
 	float centerY = (y_ * squareSize) + squareSize / 2.0f;
 
 	sf::Image image;
 
-	std::string assetsPath = config["assetsPath"];
+	std::string assetsPath = Config::ASSETS_PATH;
 	std::string imagePath = assetsPath + pieceImages.at(type_) + ".png";
 
 	image.loadFromFile(imagePath);

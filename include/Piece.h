@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include "Config.h"
+
 enum class PieceType {
 	Empty = 0,
 	Pawn = 1,
@@ -79,7 +81,7 @@ public:
 
 	void setSquare(int x, int y);
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states, nlohmann::json config) const;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 protected:
 

@@ -3,6 +3,7 @@
 #ifndef SFMLDISPLAY_H
 #define SFMLDISPLAY_H
 
+#include "Config.h"
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
@@ -10,7 +11,7 @@
 
 class SFMLDisplay {
 	public:
-		SFMLDisplay(Game& game, nlohmann::json config);
+		SFMLDisplay(Game& game);
 
 		void run();
 		void draw();
@@ -18,7 +19,6 @@ class SFMLDisplay {
 	private:
 		Game& game_;
 		sf::RenderWindow window_;
-		nlohmann::json config_;
 };
 
 #endif
