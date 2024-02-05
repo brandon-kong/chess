@@ -65,7 +65,7 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 
 		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = nullptr;
 		squares_[x][y] = selectedPiece_;
-		selectedPiece_->setSquare(x, y);
+		selectedPiece_->move(x, y);
 
 		selectedPiece_ = nullptr;
 	}
@@ -101,7 +101,7 @@ bool Board::isValidMove(int x1, int y1, int x2, int y2) {
 		}
 	}
 
-	return true;
+	return false;
 }
 
 void Board::loadFromFEN(std::string fen) {

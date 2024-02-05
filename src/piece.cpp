@@ -34,6 +34,12 @@ void Piece::setSquare(int x, int y) {
 	y_ = y;
 }
 
+void Piece::move(int x, int y) {
+	setSquare(x, y);
+
+	hasMoved_ = true;
+}
+
 void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	int piece_size = Config::PIECE_SIZE;
 	int squareSize = Config::SQUARE_SIZE;
