@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
-project(Chess LANGUAGES CXX)
+project(chess LANGUAGES CXX)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 set(SRC_DIRECTORY ${PROJECT_SOURCE_DIR}/src)
@@ -26,11 +26,11 @@ FetchContent_MakeAvailable(SFML)
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
 FetchContent_MakeAvailable(json)
 
-add_executable(Chess ${SRC_SOURCES} ${INCLUDE_SOURCES})
-target_link_libraries(Chess PRIVATE sfml-graphics nlohmann_json::nlohmann_json)
-target_compile_features(Chess PRIVATE cxx_std_17)
+add_executable(chess ${SRC_SOURCES} ${INCLUDE_SOURCES})
+target_link_libraries(chess PRIVATE sfml-graphics nlohmann_json::nlohmann_json)
+target_compile_features(chess PRIVATE cxx_std_17)
 
-target_include_directories(Chess PRIVATE ${INCLUDE_DIRECTORY})
+target_include_directories(chess PRIVATE ${INCLUDE_DIRECTORY})
 
 # Copy config.json to build directory
 configure_file(config.json ${CMAKE_BINARY_DIR}/config.json COPYONLY)
@@ -39,4 +39,4 @@ configure_file(config.json ${CMAKE_BINARY_DIR}/config.json COPYONLY)
 file(COPY ${ASSETS_DIRECTORY} DESTINATION ${ASSETS_DEST_DIR})
 
 
-install(TARGETS Chess)
+install(TARGETS chess)
