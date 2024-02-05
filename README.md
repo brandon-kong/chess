@@ -46,22 +46,24 @@ To get a local copy up and running follow these simple steps.
 
 2. Build the project
 
-On Windows:
+    On Windows:
 
 ```sh
-    cd chess
-    mkdir build
-    cd build
-    cmake -G "Visual Studio 16 2019" ..
-    cmake --build . --config Release
+cd chess
+mkdir build
+cd build
+cmake -G "Visual Studio 16 2019" ..
+cmake --build . --config Release
 ```
 
+On Linux/Mac:
+
 ```sh
-    cd chess
-    mkdir build
-    cd build
-    cmake ..
-    make
+cd chess
+mkdir build
+cd build
+cmake ..
+make
 ```
 
 3. Run the game
