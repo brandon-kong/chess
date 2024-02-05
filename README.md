@@ -2,7 +2,11 @@
 
 <h1 align="center">Chess (with no additional features) </h1>
 
+<div align="center">
+  
 [![CI Build](https://github.com/brandon-kong/chess/actions/workflows/cmake-single-platform.yml/badge.svg)](https://github.com/brandon-kong/chess/actions/workflows/cmake-single-platform.yml)
+
+</div>
 
 <p>
 
