@@ -56,7 +56,7 @@ cmake -G "Visual Studio 16 2019" ..
 cmake --build . --config Release
 ```
 
-On Linux/Mac:
+    On Linux/Mac:
 
 ```sh
 cd chess
@@ -69,7 +69,7 @@ make
 3. Run the game
 
 ```sh
-    ./chess
+./chess
 ```
 
 4. Lose to the computer
