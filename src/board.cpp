@@ -57,15 +57,24 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 		}
 	}
 	else {
-		// Make sure the move is valid
+		// see if the clicked square is the same as the selected piece
+		Piece* clickedPiece = squares_[x][y];
+
 
 		if (!isValidMove(selectedPiece_->getX(), selectedPiece_->getY(), x, y)) {
-			selectedPiece_ = nullptr;
-			return;
+			if (clickedPiece->getColor() == selectedPiece_->getColor() && clickedPiece != selectedPiece_) {
+				selectedPiece_ = clickedPiece;
+				std::vector<std::pair<int, int>> legalMoves = selectedPiece_->getValidMoves(squares_);
+				validMoves_ = legalMoves;
+				return;
+			}
+			else {
+				selectedPiece_ = nullptr;
+				return;
+			}
 		}
 
 		Move move(selectedPiece_->getX(), selectedPiece_->getY(), x, y, Move::MoveType::Normal);
-		std::cout << move.toString() << std::endl;
 
 		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = nullptr;
 		squares_[x][y] = selectedPiece_;
@@ -97,9 +106,7 @@ bool Board::isValidMove(int x1, int y1, int x2, int y2) {
 	
 	std::vector<std::pair<int, int>> legalMoves = selectedPiece_->getValidMoves(squares_);
 
-	for (int i = 0; i < legalMoves.size(); i++) {
-		std::cout << x2 << " " << y2 << std::endl;
-		
+	for (int i = 0; i < legalMoves.size(); i++) {		
 		if (legalMoves[i].first == x2 && legalMoves[i].second == y2) {
 			return true;
 		}
@@ -236,7 +243,6 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 						square.setFillColor((i + j) % 2 == 0 ? sf::Color(validMoveLightSquareColor[0], validMoveLightSquareColor[1], validMoveLightSquareColor[2]) : sf::Color(validMoveDarkSquareColor[0], validMoveDarkSquareColor[1], validMoveDarkSquareColor[2]));
 						target.draw(square, states);
 					}
-
 				}
 			}
 
