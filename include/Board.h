@@ -35,6 +35,9 @@ private:
 	int squareSize_;
 
 	Piece* selectedPiece_ = nullptr;
+
+	// Valid move squares
+	std::vector<std::pair<int, int>> validMoves_;
 };
 
 #endif

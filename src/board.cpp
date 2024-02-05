@@ -49,12 +49,7 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 		else {
 			// get selected piece's legal moves
 			std::vector<std::pair<int, int>> legalMoves = selectedPiece_->getValidMoves(squares_);
-
-			std::cout << legalMoves.size() << std::endl;
-
-			for (int i = 0; i < legalMoves.size(); i++) {
-				std::cout << "Legal move: " << legalMoves[i].first << " " << legalMoves[i].second << std::endl;
-			}
+			validMoves_ = legalMoves;
 		}
 	}
 	else {
@@ -94,13 +89,17 @@ bool Board::isValidMove(int x1, int y1, int x2, int y2) {
 		return false;
 	}
 
-	// Check if the piece is moving to a square that is occupied by a piece of the opposite color
-	if (squares_[x2][y2] != nullptr && squares_[x2][y2]->getColor() != selectedPiece_->getColor()) {
-		return true;
-	}
-
 	// Check if the piece is moving to a square that is not in the piece's movement pattern
 	
+	std::vector<std::pair<int, int>> legalMoves = selectedPiece_->getValidMoves(squares_);
+
+	for (int i = 0; i < legalMoves.size(); i++) {
+		std::cout << x2 << " " << y2 << std::endl;
+		
+		if (legalMoves[i].first == x2 && legalMoves[i].second == y2) {
+			return true;
+		}
+	}
 
 	return true;
 }
@@ -208,6 +207,21 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 				square.setFillColor((i + j) % 2 == 0 ? sf::Color(selectedLightSquareColor[0], selectedLightSquareColor[1], selectedLightSquareColor[2]) : sf::Color(selectedDarkSquareColor[0], selectedDarkSquareColor[1], selectedDarkSquareColor[2]));
 				target.draw(square, states);
+			}
+
+			// Draw the valid moves
+
+			if (selectedPiece_ != nullptr) {
+				for (int k = 0; k < validMoves_.size(); k++) {
+					if (validMoves_[k].first == i && validMoves_[k].second == j) {
+						std::vector<int> validMoveLightSquareColor = Config::SELECTED_LIGHT_SQUARE_COLOR;
+						std::vector<int> validMoveDarkSquareColor = Config::SELECTED_DARK_SQUARE_COLOR;
+
+						square.setFillColor((i + j) % 2 == 0 ? sf::Color(validMoveLightSquareColor[0], validMoveLightSquareColor[1], validMoveLightSquareColor[2]) : sf::Color(validMoveDarkSquareColor[0], validMoveDarkSquareColor[1], validMoveDarkSquareColor[2]));
+						target.draw(square, states);
+					}
+
+				}
 			}
 
 			// Draw the pieces

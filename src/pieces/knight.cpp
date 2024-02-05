@@ -5,33 +5,25 @@ std::vector<std::pair<int, int>> Knight::getValidMoves(const std::vector<std::ve
 
 	std::vector<std::pair<int, int>> moves;
 
-	// Get the direction of the pawn
-	int direction = isWhite_ ? -1 : 1;
+    std::vector<std::pair<int, int>> knightMoves = {
+        {2, 1}, {1, 2}, {-1, 2}, {-2, 1},
+        {-2, -1}, {-1, -2}, {1, -2}, {2, -1}
+    };
 
-	int x = x_;
-	int y = y_ + direction;
-	int two_squares_y = y_ + 2 * direction;
+    int x = getX();
+    int y = getY();
 
-	// normal moves
-	if (y >= 0 && y < squares.size() && squares[x][y] == nullptr) {
-		moves.push_back(std::make_pair(x, y));
+    for (const auto& move : knightMoves) {
+        int newX = x + move.first;
+        int newY = y + move.second;
 
-		if (!hasMoved_ && squares[x][two_squares_y] == nullptr) {
-			moves.push_back(std::make_pair(x, two_squares_y));
-		}
-	}
-
-	// captures
-	for (int dx = -1; dx <= 1; dx += 2) {
-		int new_x = x_ + dx;
-		int new_y = y_ + direction;
-		if (new_x >= 0 && new_x < squares.size() && new_y >= 0 && new_y < squares.size()) {
-			Piece* piece = squares[new_x][new_y];
-			if (piece != nullptr && piece->getColor() != getColor()) {
-				moves.push_back(std::make_pair(new_x, new_y));
-			}
-		}
-	}
+        if (newX >= 0 && newX < squares.size() && newY >= 0 && newY < squares.size()) {
+            Piece* piece = squares[newX][newY];
+            if (piece == nullptr || piece->getColor() != getColor()) {
+                moves.push_back({ newX, newY });
+            }
+        }
+    }
 
 	return moves;
 }
