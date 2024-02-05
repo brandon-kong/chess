@@ -4,6 +4,9 @@
 #include "Move.h"
 
 // Piece includes
+#include "Pieces/King.h"
+#include "Pieces/Queen.h"
+#include "Pieces/Rook.h"
 #include "Pieces/Bishop.h"
 #include "Pieces/Knight.h"
 #include "Pieces/Pawn.h"
@@ -168,6 +171,15 @@ void Board::loadFromFEN(std::string fen) {
 					break;
 				case BISHOP:
 					p = new Bishop(piece, x, y);
+					break;
+				case ROOK:
+					p = new Rook(piece, x, y);
+					break;
+				case QUEEN:
+					p = new Queen(piece, x, y);
+					break;
+				case KING:
+					p = new King(piece, x, y);
 					break;
 
 				default:
