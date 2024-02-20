@@ -7,8 +7,8 @@
 
 	"light_square_color": [ 232, 237, 249 ],
 	"dark_square_color": [ 183, 192, 216 ],
-	"selected_light_square_color": [ 255, 255, 0 ],
-	"selected_dark_square_color": [ 255, 255, 0 ],
+	"selected_light_square_color": [ 95, 182, 194 ],
+	"selected_dark_square_color": [ 63, 156, 169 ],
 
 	"assets_path": "assets/"
 }

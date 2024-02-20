@@ -34,6 +34,9 @@ private:
 	int board_size_;
 	int squareSize_;
 
+	// current player
+	int currentPlayer_;
+
 	Piece* selectedPiece_ = nullptr;
 
 	// Valid move squares

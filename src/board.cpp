@@ -10,6 +10,7 @@
 #include "Pieces/Bishop.h"
 #include "Pieces/Knight.h"
 #include "Pieces/Pawn.h"
+#include <SFML/Graphics/Color.hpp>
 
 Board::Board() {
 
@@ -18,6 +19,8 @@ Board::Board() {
 
 	board_size_ = board_size;
 	squareSize_ = square;
+
+	currentPlayer_ = WHITE;
 
 	squares_ = std::vector<std::vector<Piece*>>(board_size, std::vector<Piece*>(board_size, nullptr));
 
@@ -49,9 +52,16 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 
 		if (!selectedPiece_) {
 			selectedPiece_ = nullptr;
+			return;
+		}
+
+		// make sure that the color is selectable
+		if (selectedPiece_->getColor() == BLACK) {
+			selectedPiece_ = nullptr;
 		}
 		else {
 			// get selected piece's legal moves
+
 			std::vector<std::pair<int, int>> legalMoves = selectedPiece_->getValidMoves(squares_);
 			validMoves_ = legalMoves;
 		}
