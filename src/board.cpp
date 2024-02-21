@@ -147,6 +147,8 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 				}
 			}
 		}
+		
+		std::cout << move.toString() << std::endl;
 
 		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = nullptr;
 		squares_[x][y] = selectedPiece_;

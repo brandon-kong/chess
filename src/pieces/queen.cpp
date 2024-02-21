@@ -22,7 +22,7 @@ std::vector<Move> Queen::getValidMoves(const std::vector<std::vector<Piece*>>& s
             }
             else {
                 if (squares[newX][newY]->getColor() != getColor()) {
-                    moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Normal));
+                    moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Capture));
                 }
                 break;
             }

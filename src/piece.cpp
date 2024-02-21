@@ -81,4 +81,26 @@ std::vector<Move> Piece::getValidMoves(const std::vector<std::vector<Piece*>>& s
 	return std::vector<Move>();
 }
 
-// Pawn
+char Piece::getSymbol() const {
+	
+	char symbol = 'p';
+
+	switch (getPieceType()) {
+		case PAWN:
+			symbol = 'P';
+		case KNIGHT:
+			symbol = 'N';
+		case BISHOP:
+			symbol = 'B';
+		case ROOK:
+			symbol = 'R';
+		case QUEEN:
+			symbol = 'Q';
+		case KING:
+			symbol = 'K';
+		default:
+			symbol = 'p';
+	}
+
+	return isWhite_ ? symbol : tolower(symbol);
+}

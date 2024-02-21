@@ -3,6 +3,7 @@
 
 #include "Config.h"
 #include "Piece.h"
+#include "Move.h"
 
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>

@@ -27,7 +27,7 @@ std::vector<Move> Bishop::getValidMoves(const std::vector<std::vector<Piece*>>& 
                     moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Normal));
                 }
                 else if (squares[newX][newY]->getColor() != getColor()) {
-                    moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Normal));
+                    moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Capture));
                     break;
                 }
                 else {

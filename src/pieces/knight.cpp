@@ -19,9 +19,12 @@ std::vector<Move> Knight::getValidMoves(const std::vector<std::vector<Piece*>>& 
 
         if (newX >= 0 && newX < squares.size() && newY >= 0 && newY < squares.size()) {
             Piece* piece = squares[newX][newY];
-            if (piece == nullptr || piece->getColor() != getColor()) {
+            if (piece == nullptr) {
                 moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Normal));
             }
+            else if (piece->getColor() != getColor()) {
+				moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Capture));
+			}
         }
     }
 

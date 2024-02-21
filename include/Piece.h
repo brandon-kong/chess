@@ -73,6 +73,7 @@ const std::map<int, std::string> pieceImages = {
 class Piece {
 public:
 
+	Piece() : type_(EMPTY), isWhite_(true), hasMoved_(false), x_(0), y_(0) {}
 	Piece(int type, int x, int y);
 
 	int getType() const;
@@ -83,6 +84,8 @@ public:
 	int getY() const;
 
 	bool hasMoved() const;
+
+	char getSymbol() const;
 
 	void move(int x, int y);
 	void setSquare(int x, int y);
