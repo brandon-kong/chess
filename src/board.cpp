@@ -56,8 +56,9 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 		}
 
 		// make sure that the color is selectable
-		if (selectedPiece_->getColor() == BLACK) {
+		if (selectedPiece_->getColor() != currentPlayer_) {
 			selectedPiece_ = nullptr;
+			return;
 		}
 		else {
 			// get selected piece's legal moves
@@ -68,20 +69,32 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 	}
 	else {
 		// see if the clicked square is the same as the selected piece
+		if (selectedPiece_->getX() == x && selectedPiece_->getY() == y) {
+			selectedPiece_ = nullptr;
+			return;
+		}
+
 		Piece* clickedPiece = squares_[x][y];
 
-
 		if (!isValidMove(selectedPiece_->getX(), selectedPiece_->getY(), x, y)) {
-			if (clickedPiece->getColor() == selectedPiece_->getColor() && clickedPiece != selectedPiece_) {
+			// if the new square is the same color as the selected piece, then select the new piece
+			if (clickedPiece != nullptr && clickedPiece->getColor() == selectedPiece_->getColor()) {
 				selectedPiece_ = clickedPiece;
 				std::vector<std::pair<int, int>> legalMoves = selectedPiece_->getValidMoves(squares_);
 				validMoves_ = legalMoves;
-				return;
 			}
 			else {
 				selectedPiece_ = nullptr;
-				return;
 			}
+			return;
+		}
+
+		// change the player
+		if (currentPlayer_ == WHITE) {
+			currentPlayer_ = BLACK;
+		}
+		else {
+			currentPlayer_ = WHITE;
 		}
 
 		Move move(selectedPiece_->getX(), selectedPiece_->getY(), x, y, Move::MoveType::Normal);

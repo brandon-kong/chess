@@ -29,6 +29,10 @@ int Piece::getY() const {
 	return y_;
 }
 
+bool Piece::hasMoved() const {
+	return hasMoved_;
+}
+
 void Piece::setSquare(int x, int y) {
 	x_ = x;
 	y_ = y;

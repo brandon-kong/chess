@@ -81,6 +81,8 @@ public:
 	int getX() const;
 	int getY() const;
 
+	bool hasMoved() const;
+
 	void move(int x, int y);
 	void setSquare(int x, int y);
 

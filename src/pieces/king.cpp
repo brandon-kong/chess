@@ -23,5 +23,20 @@ std::vector<std::pair<int, int>> King::getValidMoves(const std::vector<std::vect
         }
     }
 
+    // Castling
+
+    if (hasMoved()) {
+        if (squares[x + 1][y] == nullptr && squares[x + 2][y] == nullptr) {
+            if (squares[x + 3][y] != nullptr && squares[x + 3][y]->getType() == ROOK && !squares[x + 3][y]->hasMoved()) {
+				moves.push_back({ x + 2, y });
+			}
+		}
+        if (squares[x - 1][y] == nullptr && squares[x - 2][y] == nullptr && squares[x - 3][y] == nullptr) {
+            if (squares[x - 4][y] != nullptr && squares[x - 4][y]->getType() == ROOK && !squares[x - 4][y]->hasMoved()) {
+				moves.push_back({ x - 2, y });
+			}
+		}
+	}
+
     return moves;
 }
