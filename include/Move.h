@@ -14,12 +14,14 @@ public:
 		Promotion
 	};
 
+	Move() : fromX_(-1), fromY_(-1), toX_(-1), toY_(-1), type_(MoveType::Normal) {}
 	Move(int fromX, int fromY, int toX, int toY, MoveType type) : fromX_(fromX), fromY_(fromY), toX_(toX), toY_(toY), type_(type) {}
 
 	int getFromX() const { return fromX_; }
 	int getFromY() const { return fromY_; }
 	int getToX() const { return toX_; }
 	int getToY() const { return toY_; }
+	MoveType getType() const { return type_; }
 
 	std::string toString() const {
 		// algebraic notation

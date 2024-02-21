@@ -27,13 +27,13 @@ Board::Board() {
 	init();
 }
 
-void Board::init() 
+void Board::init()
 {
 	this->loadFromFEN(Config::START_FEN);
 }
 
 void Board::handleMouseClick(sf::Vector2i mousePosition) {
-	
+
 	int x = mousePosition.x / squareSize_;
 	int y = mousePosition.y / squareSize_;
 
@@ -97,7 +97,56 @@ void Board::handleMouseClick(sf::Vector2i mousePosition) {
 			currentPlayer_ = WHITE;
 		}
 
-		Move move(selectedPiece_->getX(), selectedPiece_->getY(), x, y, Move::MoveType::Normal);
+		Move move;
+
+		for (int i = 0; i < validMoves_.size(); i++) {
+			if (validMoves_[i].getToX() == x && validMoves_[i].getToY() == y) {
+				move = validMoves_[i];
+				break;
+			}
+		}
+
+		if (move.getFromX() == -1 || move.getFromY() == -1) {
+			std::cerr << "Error: move is invalid" << std::endl;
+			exit(1);
+		}
+
+		// handle castling
+
+		if (move.getType() == Move::MoveType::Castle) {
+			// move the rook
+
+			if (move.getToX() == 6) {
+				// move the rook to the right
+				if (move.getToY() == 0) {
+					// white
+					squares_[5][0] = squares_[7][0];
+					squares_[7][0] = nullptr;
+					squares_[5][0]->move(5, 0);
+				}
+				else {
+					// black
+					squares_[5][7] = squares_[7][7];
+					squares_[7][7] = nullptr;
+					squares_[5][7]->move(5, 7);
+				}
+			}
+			else {
+				// move the rook to the left
+				if (move.getToY() == 0) {
+					// white
+					squares_[3][0] = squares_[0][0];
+					squares_[0][0] = nullptr;
+					squares_[3][0]->move(3, 0);
+				}
+				else {
+					// black
+					squares_[3][7] = squares_[0][7];
+					squares_[0][7] = nullptr;
+					squares_[3][7]->move(3, 7);
+				}
+			}
+		}
 
 		squares_[selectedPiece_->getX()][selectedPiece_->getY()] = nullptr;
 		squares_[x][y] = selectedPiece_;

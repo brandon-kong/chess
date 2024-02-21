@@ -35,7 +35,7 @@ std::vector<Move> King::getValidMoves(const std::vector<std::vector<Piece*>>& sq
 
         if (squares[x - 1][y] == nullptr && squares[x - 2][y] == nullptr && squares[x - 3][y] == nullptr) {
             if (squares[x - 4][y] != nullptr && squares[x - 4][y]->getPieceType() == ROOK && !squares[x - 4][y]->hasMoved()) {
-                moves.push_back(Move(getX(), getY(), x - 3, y, Move::MoveType::Castle));
+                moves.push_back(Move(getX(), getY(), x - 2, y, Move::MoveType::Castle));
 			}
 		}
 	}
