@@ -40,7 +40,7 @@ private:
 	Piece* selectedPiece_ = nullptr;
 
 	// Valid move squares
-	std::vector<std::pair<int, int>> validMoves_;
+	std::vector<Move> validMoves_;
 };
 
 #endif

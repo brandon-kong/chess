@@ -7,8 +7,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 #include <map>
+
 #include "Move.h"
 #include "Config.h"
 
@@ -77,6 +77,7 @@ public:
 
 	int getType() const;
 	int getColor() const;
+	int getPieceType() const;
 
 	int getX() const;
 	int getY() const;
@@ -86,7 +87,7 @@ public:
 	void move(int x, int y);
 	void setSquare(int x, int y);
 
-	virtual std::vector<std::pair<int, int>> getValidMoves(const std::vector<std::vector<Piece*>>& squares) const;
+	virtual std::vector<Move> getValidMoves(const std::vector<std::vector<Piece*>>& squares) const;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 protected:

@@ -1,9 +1,9 @@
 #include "Pieces/Queen.h"
 
 
-std::vector<std::pair<int, int>> Queen::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
+std::vector<Move> Queen::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
 
-    std::vector<std::pair<int, int>> moves;
+    std::vector<Move> moves;
 
     std::vector<std::pair<int, int>> directions = {
         {1, 0},  {-1, 0}, {0, 1}, {0, -1},
@@ -18,11 +18,11 @@ std::vector<std::pair<int, int>> Queen::getValidMoves(const std::vector<std::vec
         int newY = y + dy;
         while (newX >= 0 && newX < squares.size() && newY >= 0 && newY < squares.size()) {
             if (squares[newX][newY] == nullptr) {
-                moves.push_back({ newX, newY });
+                moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Normal));
             }
             else {
                 if (squares[newX][newY]->getColor() != getColor()) {
-                    moves.push_back({ newX, newY });
+                    moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Normal));
                 }
                 break;
             }

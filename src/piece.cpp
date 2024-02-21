@@ -17,6 +17,10 @@ int Piece::getType() const {
 	return type_;
 }
 
+int Piece::getPieceType() const {
+	return type_ & 7;
+}
+
 int Piece::getColor() const {
 	return isWhite_ ? WHITE : BLACK;
 }
@@ -72,9 +76,9 @@ void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(sprite, states);
 }
 
-std::vector<std::pair<int, int>> Piece::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
+std::vector<Move> Piece::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
 	// This is a virtual function, so it will be overridden by the derived classes
-	return std::vector<std::pair<int, int>>();
+	return std::vector<Move>();
 }
 
 // Pawn

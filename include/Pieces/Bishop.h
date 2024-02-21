@@ -9,7 +9,7 @@ class Bishop : public Piece
 {
 public:
 	Bishop(int type, int x, int y) : Piece(type, x, y) {}
-	std::vector<std::pair<int, int>> getValidMoves(const std::vector<std::vector<Piece*>>& board) const override;
+	std::vector<Move> getValidMoves(const std::vector<std::vector<Piece*>>& board) const override;
 };
 
 #endif

@@ -1,9 +1,9 @@
 #include "Pieces/Knight.h"
 
 
-std::vector<std::pair<int, int>> Knight::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
+std::vector<Move> Knight::getValidMoves(const std::vector<std::vector<Piece*>>& squares) const {
 
-	std::vector<std::pair<int, int>> moves;
+	std::vector<Move> moves;
 
     std::vector<std::pair<int, int>> knightMoves = {
         {2, 1}, {1, 2}, {-1, 2}, {-2, 1},
@@ -20,7 +20,7 @@ std::vector<std::pair<int, int>> Knight::getValidMoves(const std::vector<std::ve
         if (newX >= 0 && newX < squares.size() && newY >= 0 && newY < squares.size()) {
             Piece* piece = squares[newX][newY];
             if (piece == nullptr || piece->getColor() != getColor()) {
-                moves.push_back({ newX, newY });
+                moves.push_back(Move(getX(), getY(), newX, newY, Move::MoveType::Normal));
             }
         }
     }
